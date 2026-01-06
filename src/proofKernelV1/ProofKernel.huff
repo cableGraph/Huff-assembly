@@ -1,0 +1,76 @@
+#define macro MAIN() = takes(0) returns (0) {
+
+    // 0x00   [0]
+    // calldataload [calldata (32)]
+
+    // //SHR upcode
+    // // 0x0102 m,kl
+    
+    // SHR2
+    // 0b100000010 //bin value of the hex
+    //   0b1000000
+    // 0x40   hex AFTER SHIFTrIGHT2
+
+    // 0b1000000 //bin value after rightshft2
+    
+    // 0b10000   //bin value after rightshft3
+
+    // 0x10      hex AFTER SHIFTrIGHT4
+    // 16        dec
+
+    // 0x0102 >> 4 = 16
+
+    // when having  a calldataload eg
+
+    // bytes32 = 0xe026c01700000000000000000000000000000000000000000000000000000000
+    // SHR takes the number of bits to shift Right
+    // hex = <0xe026c017> (<000000000000000000000000000000000000000000000000>) <00000000> //Out of 32bytes bound. 
+    // bytes = (56(hex) / 2) == (28)
+    // bits = (28 * 8) = 224 bits
+
+    // selector = calldataload(0) >> 224 == 0xe0 
+
+    // 0xe0           //               [0xe0, calldata(32)]
+    // shr            //               [function selector]
+
+    0x00 calldataload 0xe0 shr // [function_selector]
+    // JUMP -> function data associated with the selector 
+    // If f_select == updateHorseNumber -> jump to that code
+    // If f_select == readNumberofHorses -> jump to that code
+    //  0xcdfead2e == update func selector
+    //  0x6621e73d == read   func selector
+    
+    // update func selector
+    0xcdfead2e                   //    [0xcdfead2e, function_selector]
+    eq                          //     [true_if_func_selector_matches, function_selector]
+    //jump to updateHorseNumber code if true
+    //talright biggest step ive made so far
+    //this is day3 of sem retention, Its a long jrney i know
+    //the next thing that i aint smocking tommorow is weedh hhxjsjjjjj 
+    
+
+    //jump to undateHorseNumber if true
+    dup1                             // [0xcdfead2e, function_selector, function_selector]
+    updateJump                      //  [updateHorseNumberProgramCounter, true/false]
+    jumpi                           //  [function_selector]
+
+
+  //read NumberOfHorses
+
+     0xe026c017                         // [0xe026c017, function_selector function]
+     eq                                 //[true_false_conditional, function_selector]
+     readHorses                         // [readHorsesProgramCounter, true/false]
+     jumpi                              // [function_selector]
+    
+
+      updateJump:
+      SET_NUMBER_OF_HORSES()
+
+      readHorses:
+      GET_NUMBER_OF_HORSES()
+}
+#define macro SET_NUMBER_OF_HORSES() = takes(0) returns (0) {}
+#define macro GET_NUMBER_OF_HORSES() = takes(0) returns (0) {}
+
+
+
