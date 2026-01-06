@@ -43,10 +43,6 @@
     // update func selector
     0xcdfead2e                   //    [0xcdfead2e, function_selector]
     eq                          //     [true_if_func_selector_matches, function_selector]
-    //jump to updateHorseNumber code if true
-    //talright biggest step ive made so far
-    //this is day3 of sem retention, Its a long jrney i know
-    //the next thing that i aint smocking tommorow is weedh hhxjsjjjjj 
     
 
     //jump to undateHorseNumber if true
